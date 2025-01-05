@@ -16,4 +16,4 @@ Para realizar las operaciones CRUD uso la APP INMSOMIA, y todo se gestiona en la
 ## Instalación
 
 1. Repositorio:
-   git clone https://github.com/
+   git clone (https://github.com/GiraMorales/Project6.git)
