@@ -35,7 +35,7 @@ const getUserProjects = async (req, res, next) => {
 
     return res.status(200).json(userProjects);
   } catch (error) {
-    return res.status(400).json('Error al obtener proyectos');
+    return res.status(400).json('Error al obtener usuarios de los proyectos');
   }
 };
 //! UPDATE
