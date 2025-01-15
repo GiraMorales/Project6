@@ -6,7 +6,8 @@ const postProjects = async (req, res, next) => {
     const newProyect = new Project6({
       title: req.body.title,
       imgUrl: req.body.imgUrl,
-      username: req.body.username
+      username: req.body.username,
+      relatedUsers: req.body.relatedUsers || []
     });
     const project6Saved = await newProyect.save();
     return res.status(201).json(project6Saved);
@@ -17,7 +18,9 @@ const postProjects = async (req, res, next) => {
 //! READ
 const getProjects = async (req, res, next) => {
   try {
-    const allProjects = await Project6.find().populate('username');
+    const allProjects = await Project6.find()
+      .populate('username')
+      .populate('relatedUsers');
     return res.status(200).json(allProjects);
   } catch (error) {
     return res.status(400).json('Error al obtener proyectos');
@@ -27,7 +30,7 @@ const getUserProjects = async (req, res, next) => {
   try {
     const { id } = req.params;
     const userProjects = await Project6.findById({ user: id }).populate(
-      username
+      'username'
     );
 
     return res.status(200).json(userProjects);
@@ -41,6 +44,13 @@ const updateProjects = async (req, res, next) => {
     const { id } = req.params;
     const newProyect = new Project6(req.body);
     newProyect._id = id;
+    // Agregar usuarios relacionados sin duplicados
+    if (newProyect.relatedUsers && newProyect.relatedUsers.length) {
+      newProyect.relatedUsers.forEach((userId) => {
+        newProyect.$addToSet = { relatedUsers: userId }; // Agregar solo si no existe ya
+      });
+    }
+
     const updateProjects = await Project6.findByIdAndUpdate(id, newProyect, {
       new: true
     });
