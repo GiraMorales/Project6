@@ -1,11 +1,14 @@
 const mongoose = require('mongoose');
 
-const connectDB = async () => {
+const connectDB = async (DB_URL) => {
   try {
-    await mongoose.connect(process.env.DB_URL),
-      console.log('BBDD conectada 😎');
+    await mongoose.connect(DB_URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    });
+    console.log('BBDD conectada 😎'); // Mensaje de éxito
   } catch (error) {
-    console.log('Error en la conexión con la BBDD 🤬');
+    console.error('Error en la conexión con la BBDD 🤬', error); // Mensaje de error
   }
 };
 
