@@ -13,7 +13,7 @@ Project6Routes.get('/', getProjects);
 Project6Routes.get('/:id', getUserProjects);
 Project6Routes.post('/', postProjects);
 Project6Routes.put('/:id', updateProjects);
-UserRoutes.put('/update-relation/:id', updateProjectRelations);
+Project6Routes.put('/update-relation/:id', updateProjectRelations);
 Project6Routes.delete('/:id', deleteProjects);
 
 module.exports = Project6Routes;

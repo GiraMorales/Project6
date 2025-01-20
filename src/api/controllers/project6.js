@@ -1,4 +1,5 @@
 const Project6 = require('../models/project6');
+const User = require('../models/users');
 
 //! CREATE
 const postProjects = async (req, res, next) => {
