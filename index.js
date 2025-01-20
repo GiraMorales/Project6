@@ -3,7 +3,7 @@ const express = require('express');
 const { connectDB } = require('./src/config/db');
 const Project6Routes = require('./src/api/routes/project6');
 const UserRoutes = require('./src/api/routes/users');
-const PORT = 3001;
+const PORT = 3000;
 const DB_URL = process.env.DB_URL;
 const app = express();
 // Conectar a la base de datos
