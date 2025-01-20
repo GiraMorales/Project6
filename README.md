@@ -18,6 +18,8 @@ DELETE /api/v1/users/:id: Elimina un usuario y su archivo asociado en Cloudinary
 GET /api/v1/projects: Obtiene todos los proyectos.
 POST /api/v1/projects: Crea un nuevo proyecto.
 PUT /api/v1/projects/:id: Actualiza un proyecto existente.
+PUT /api/v1/projects//update-relation/:id: Actualiza relacions de un proyecto (sin borrar y evitando duplicados)
+UserRoutes.put('/update-relation/:id', updateProjectRelations);
 DELETE /api/v1/projects/:id: Elimina un proyecto y su archivo asociado en Cloudinary.
 
 ## Tecnologías Utilizadas
@@ -40,6 +42,8 @@ DELETE /api/v1/projects/:id: Elimina un proyecto y su archivo asociado en Cloudi
 - nmp init -y
 
 ### Se instala las dependencias
+
+npm install...
 
 `Para manejar variables del archivo .env donde estan los datos sensibles que no pueden ver nadie.`
 

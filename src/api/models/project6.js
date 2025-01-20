@@ -5,9 +5,7 @@ const Project6Schema = new mongoose.Schema(
     imgUrl: { type: String, required: true },
     title: { type: String, required: true },
     username: { type: mongoose.Types.ObjectId, ref: 'users', required: true },
-    relatedUsers: [
-      { type: mongoose.Types.ObjectId, ref: 'users', unique: true }
-    ] // Agregar el array de relaciones
+    relatedUsers: [{ type: mongoose.Types.ObjectId, ref: 'someCollection' }] // Agregar el array de relaciones sin duplicados
   },
   {
     timestamps: true,
