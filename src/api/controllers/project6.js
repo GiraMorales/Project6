@@ -19,8 +19,8 @@ const postProjects = async (req, res, next) => {
 const getProjects = async (req, res, next) => {
   try {
     const allProjects = await Project6.find()
-      .populate('username')
-      .populate('relatedUsers');
+      .populate('username', 'username email role') // Obtiene el usuario creador (con campos específicos)
+      .populate('relatedUsers', 'username email role'); // Obtiene usuarios relacionados (sin duplicados)
     return res.status(200).json(allProjects);
   } catch (error) {
     return res.status(400).json('Error al obtener proyectos');
@@ -42,9 +42,22 @@ const getUserProjects = async (req, res, next) => {
 const updateProjects = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const updatedProject = await Project6.findByIdAndUpdate(id, req.body, {
-      new: true
-    });
+    const { title, imgUrl, relatedUsers } = req.body;
+    const updatedProject = await Project6.findByIdAndUpdate(
+      id,
+      req.body,
+      {
+        title,
+        imgUrl,
+        $addToSet: { relatedUsers: { $each: relatedUsers } } // Evita duplicados en el array
+      },
+      {
+        new: true
+      }
+    )
+      .populate('username', 'username email')
+      .populate('relatedUsers', 'username email');
+
     return res.status(200).json(updatedProject);
   } catch (error) {
     return res.status(400).json('Error al actualizar el proyecto');
