@@ -1,4 +1,4 @@
-const dotenv = require('dotenv').config();
+require('dotenv').config();
 const express = require('express');
 const { connectDB } = require('./src/config/db');
 const Project6Routes = require('./src/api/routes/project6');
