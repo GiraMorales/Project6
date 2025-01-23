@@ -67,7 +67,6 @@ const updateProjectRelations = async (req, res, next) => {
   try {
     const { id } = req.params;
     const { relatedItems } = req.body;
-
     const project = await Project6.findById(id);
     if (!project) {
       return res.status(404).json({ message: 'Proyecto no encontrado' });
