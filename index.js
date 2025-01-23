@@ -16,7 +16,6 @@ app.use(express.json());
 
 // Rutas
 app.use('/api/v1/projects', Project6Routes);
-app.use('/api/v1/projects/update-relation', Project6Routes);
 app.use('/api/v1/users', UserRoutes);
 app.use('/ping', (req, res, next) => {
   return res.status(200).json('pong');
