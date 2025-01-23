@@ -19,9 +19,7 @@ const postProjects = async (req, res, next) => {
 //! READ
 const getProjects = async (req, res, next) => {
   try {
-    const allProjects = await Project6.find()
-      .populate('username', 'username email role') // Obtiene el usuario creador (con campos específicos)
-      .populate('relatedUsers', 'username email role'); // Obtiene usuarios relacionados (sin duplicados)
+    const allProjects = await Project6.find();
     return res.status(200).json(allProjects);
   } catch (error) {
     return res.status(400).json('Error al obtener proyectos');
@@ -30,8 +28,10 @@ const getProjects = async (req, res, next) => {
 const getUserProjects = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const userProjects = await Project6.find({ user: id }).populate('username');
-
+    const userProjects = await Project6.find({ project: id }).populate(
+      'username',
+      'username email role'
+    );
     return res.status(200).json(userProjects);
   } catch (error) {
     return res.status(400).json('Error al obtener usuarios de los proyectos');
