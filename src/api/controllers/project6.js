@@ -1,5 +1,4 @@
 const Project6 = require('../models/project6');
-const User = require('../models/users');
 
 //! CREATE
 const postProjects = async (req, res, next) => {
@@ -28,10 +27,8 @@ const getProjects = async (req, res, next) => {
 const getUserProjects = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const userProjects = await Project6.find({ project: id }).populate(
-      'username',
-      'username email role'
-    );
+    const userProjects = await Project6.findById(id).populate('relatedUsers');
+
     return res.status(200).json(userProjects);
   } catch (error) {
     return res.status(400).json('Error al obtener usuarios de los proyectos');
@@ -53,32 +50,14 @@ const updateProjects = async (req, res, next) => {
       {
         new: true
       }
-    )
-      .populate('username', 'username email')
-      .populate('relatedUsers', 'username email');
+    ).populate('username', 'username email');
+    if (!updatedProject) {
+      return res.status(404).json({ message: 'Proyecto no encontrado' });
+    }
 
     return res.status(200).json(updatedProject);
   } catch (error) {
     return res.status(400).json('Error al actualizar el proyecto');
-  }
-};
-
-const updateProjectRelations = async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const { relatedItems } = req.body;
-    const project = await Project6.findById(id);
-    if (!project) {
-      return res.status(404).json({ message: 'Proyecto no encontrado' });
-    }
-
-    project.relatedItems = [
-      ...new Set([...project.relatedItems, ...relatedItems])
-    ];
-    await project.save();
-    return res.status(200).json(project);
-  } catch (error) {
-    return res.status(400).json('Error al actualizar relaciones del proyecto');
   }
 };
 
@@ -98,6 +77,5 @@ module.exports = {
   getUserProjects,
   postProjects,
   updateProjects,
-  updateProjectRelations,
   deleteProjects
 };
