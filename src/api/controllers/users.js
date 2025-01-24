@@ -11,6 +11,8 @@ const postUser = async (req, res, next) => {
     const userSaved = await newUser.save();
     return res.status(201).json(userSaved);
   } catch (error) {
+    console.log(error);
+
     return res.status(400).json('Error al crear usuario');
   }
 };
