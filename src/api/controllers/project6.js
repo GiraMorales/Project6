@@ -41,7 +41,6 @@ const updateProjects = async (req, res, next) => {
     const { title, imgUrl, relatedUsers } = req.body;
     const updatedProject = await Project6.findByIdAndUpdate(
       id,
-      req.body,
       {
         title,
         imgUrl,
